@@ -5,10 +5,12 @@ import com.iotecnicos.backend_iotecnicos.collaborate_and_request.domain.model.qu
 import com.iotecnicos.backend_iotecnicos.collaborate_and_request.domain.model.queries.GetRestaurantDetails;
 import com.iotecnicos.backend_iotecnicos.collaborate_and_request.domain.services.RestaurantQueryService;
 import com.iotecnicos.backend_iotecnicos.collaborate_and_request.infrastructure.persistence.jpa.repositories.RestaurantRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class RestaurantQueryServiceImpl implements RestaurantQueryService {
     private final RestaurantRepository restaurantRepository;
 
