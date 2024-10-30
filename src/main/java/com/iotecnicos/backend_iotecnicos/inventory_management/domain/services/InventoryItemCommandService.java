@@ -14,5 +14,6 @@ public interface InventoryItemCommandService {
 
     void updateQuantity(Long inventoryItemId, int newQuantity);
     void relocate(Long inventoryItemId, String newLocation);
-    void checkTemperature(Long inventoryItemId);
+    String checkTemperature(Long inventoryItemId);
+
 }

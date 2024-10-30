@@ -12,7 +12,7 @@ import java.util.List;
 public interface CoolingUnitRepository extends JpaRepository<CoolingUnit, Long> {
 
     boolean existsByTypeAndProject(String type, Project project);
-    List<CoolingUnit> findAllByProject(Project project);
+    List<CoolingUnit> findAllByProject(Long project);
     List<CoolingUnit> findAllByStatus(String status);
 
 }

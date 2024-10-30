@@ -72,29 +72,18 @@ public class InventoryItem extends AuditableAbstractAggregateRoot<InventoryItem>
         return project.projectEnt();
     }
 
-    // Métodos adicionales para las funcionalidades específicas
-
-    public InventoryItem updateQuantity(int newQuantity) {
-        if (newQuantity < 0) {
-            throw new IllegalArgumentException("La cantidad no puede ser negativa.");
-        }
+    // Métodos adicionales con los nombres originales
+    public void updateQuantity(int newQuantity) {
         this.availableQuantity = newQuantity;
-        return this;
     }
 
-    public InventoryItem relocate(String newLocation) {
-        if (newLocation == null || newLocation.isEmpty()) {
-            throw new IllegalArgumentException("La nueva ubicación no puede estar vacía.");
-        }
+    public void relocate(String newLocation) {
         this.location = newLocation;
-        return this;
     }
 
-    public void checkTemperature() {
-        if (this.temperatureRange == null || this.temperatureRange.isEmpty()) {
-            throw new IllegalArgumentException("El rango de temperatura no está definido.");
-        }
-        // Aquí podrías agregar lógica específica para verificar el rango de temperatura
+    public String checkTemperature() {
+        return this.temperatureRange;
     }
+
 }
 
