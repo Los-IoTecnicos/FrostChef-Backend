@@ -30,7 +30,7 @@ public class CoolingQueryServiceImpl implements CoolingUnitQueryService {
         return coolingUnitRepository.findAllByProject(query.project());
     }
 
-    
+
     @Override
     public Optional<String> handle(GetCoolingUnitStatusQuery query) {
         return coolingUnitRepository.findById(query.coolerUnitId())

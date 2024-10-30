@@ -98,4 +98,7 @@ public class CoolingUnit extends AuditableAbstractAggregateRoot<CoolingUnit> {
         this.lastMaintenanceDate = maintenanceDate;
         return this;
     }
+    public Long getProjectId(){
+        return project.projectEnt();
+    }
 }
