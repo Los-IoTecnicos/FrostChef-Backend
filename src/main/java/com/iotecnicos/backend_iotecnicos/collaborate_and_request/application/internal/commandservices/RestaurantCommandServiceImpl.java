@@ -60,5 +60,4 @@ public class RestaurantCommandServiceImpl implements RestaurantCommandService {
             throw new IllegalArgumentException("Error while deleting restaurant: " + e.getMessage());
         }
     }
-    }
 }
