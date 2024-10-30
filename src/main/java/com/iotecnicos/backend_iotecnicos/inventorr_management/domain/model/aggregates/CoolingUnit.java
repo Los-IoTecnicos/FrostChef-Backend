@@ -82,23 +82,14 @@ public class CoolingUnit extends AuditableAbstractAggregateRoot<CoolingUnit> {
         return this;
     }
 
-    public CoolingUnit adjustTemperature(Float newTemperature) {
-        if (newTemperature < 0 || newTemperature > 10) {
-            throw new IllegalArgumentException("La temperatura debe estar en el rango de 0 a 10 grados.");
-        }
-        this.temperature = newTemperature;
-        return this; // Retorna la instancia actualizada para permitir encadenamiento si es necesario
-    }
-
-
-    public CoolingUnit scheduleMaintenance(Date maintenanceDate) {
-        if (maintenanceDate.before(new Date())) {
-            throw new IllegalArgumentException("La fecha de mantenimiento no puede estar en el pasado.");
-        }
-        this.lastMaintenanceDate = maintenanceDate;
-        return this;
-    }
     public Long getProjectId(){
         return project.projectEnt();
+    }
+    public void setTemperature(Float temperature) {
+        this.temperature = temperature;
+    }
+
+    public void setLastMaintenanceDate(Date lastMaintenanceDate) {
+        this.lastMaintenanceDate = lastMaintenanceDate;
     }
 }

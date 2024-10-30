@@ -9,6 +9,7 @@ import com.iotecnicos.backend_iotecnicos.inventorr_management.domain.services.Co
 import com.iotecnicos.backend_iotecnicos.inventorr_management.infraestructure.persistence.jpa.repositories.CoolingUnitRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -70,5 +71,38 @@ public class CoolingCommandServiceImpl implements CoolingUnitCommandService {
         }catch (Exception e){
             throw new IllegalArgumentException("There is already a cooling unit with this ID"+e.getMessage());
         }
+    }
+    @Override
+    public void adjustTemperature(Long coolingUnitId, Float newTemperature) {
+        Optional<CoolingUnit> coolingUnitOptional = coolingUnitRepository.findById(coolingUnitId);
+        if (coolingUnitOptional.isEmpty()) {
+            throw new IllegalArgumentException("Cooling Unit not found");
+        }
+
+        CoolingUnit coolingUnit = coolingUnitOptional.get();
+
+        if (newTemperature < 0 || newTemperature > 10) {
+            throw new IllegalArgumentException("La temperatura debe estar en el rango de 0 a 10 grados.");
+        }
+
+        coolingUnit.setTemperature(newTemperature);
+        coolingUnitRepository.save(coolingUnit);
+    }
+
+    @Override
+    public void scheduleMaintenance(Long coolingUnitId, Date maintenanceDate) {
+        Optional<CoolingUnit> coolingUnitOptional = coolingUnitRepository.findById(coolingUnitId);
+        if (coolingUnitOptional.isEmpty()) {
+            throw new IllegalArgumentException("Cooling Unit not found");
+        }
+
+        CoolingUnit coolingUnit = coolingUnitOptional.get();
+
+        if (maintenanceDate.before(new Date())) {
+            throw new IllegalArgumentException("La fecha de mantenimiento no puede estar en el pasado.");
+        }
+
+        coolingUnit.setLastMaintenanceDate(maintenanceDate);
+        coolingUnitRepository.save(coolingUnit);
     }
 }

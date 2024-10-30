@@ -5,10 +5,15 @@ import com.iotecnicos.backend_iotecnicos.inventorr_management.domain.model.comma
 import com.iotecnicos.backend_iotecnicos.inventorr_management.domain.model.commands.DeleteCoolingUnitCommand;
 import com.iotecnicos.backend_iotecnicos.inventorr_management.domain.model.commands.UpdateCoolingUnitCommand;
 
+import java.util.Date;
 import java.util.Optional;
 
 public interface CoolingUnitCommandService {
     Long handle (CreateCoolingUnitCommand command);
     Optional<CoolingUnit> handle (UpdateCoolingUnitCommand command);
     void handle (DeleteCoolingUnitCommand command);
+
+    // Añadir estos dos métodos:
+    void adjustTemperature(Long coolingUnitId, Float newTemperature);
+    void scheduleMaintenance(Long coolingUnitId, Date maintenanceDate);
 }
