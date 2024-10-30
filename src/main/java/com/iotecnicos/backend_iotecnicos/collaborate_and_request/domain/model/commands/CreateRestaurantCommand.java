@@ -2,5 +2,5 @@ package com.iotecnicos.backend_iotecnicos.collaborate_and_request.domain.model.c
 
 import java.util.Date;
 
-public record CreateRestaurantCommand(String Name, String location, String contactInfo, Date createdDate) {
+public record CreateRestaurantCommand(String name, String location, String contactInfo, Date createdDate, Long project) {
 }
