@@ -81,18 +81,18 @@ public class CoolingUnit extends AuditableAbstractAggregateRoot<CoolingUnit> {
         this.temperature = temperature;
         return this;
     }
-    // Método para ajustar la temperatura
+
     public CoolingUnit adjustTemperature(Float newTemperature) {
-        if (newTemperature < 0 || newTemperature > 10) { // Ejemplo de lógica de validación
+        if (newTemperature < 0 || newTemperature > 10) {
             throw new IllegalArgumentException("La temperatura debe estar en el rango de 0 a 10 grados.");
         }
         this.temperature = newTemperature;
         return this; // Retorna la instancia actualizada para permitir encadenamiento si es necesario
     }
 
-    // Método para programar el mantenimiento
+
     public CoolingUnit scheduleMaintenance(Date maintenanceDate) {
-        if (maintenanceDate.before(new Date())) { // No se puede programar mantenimiento en una fecha pasada
+        if (maintenanceDate.before(new Date())) {
             throw new IllegalArgumentException("La fecha de mantenimiento no puede estar en el pasado.");
         }
         this.lastMaintenanceDate = maintenanceDate;
