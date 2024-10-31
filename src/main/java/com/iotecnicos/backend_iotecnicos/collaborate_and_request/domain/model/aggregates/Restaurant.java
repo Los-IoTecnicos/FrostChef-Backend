@@ -65,4 +65,15 @@ public class Restaurant extends AuditableAbstractAggregateRoot<Restaurant> {
     }
 
     public Long getProjectId() {return project.projectEnt();}
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setContactInfo(String contactInfo) {
+        this.contactInfo = contactInfo;
+    }
 }
