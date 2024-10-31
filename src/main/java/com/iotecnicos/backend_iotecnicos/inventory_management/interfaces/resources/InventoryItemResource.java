@@ -1,6 +1,6 @@
 package com.iotecnicos.backend_iotecnicos.inventory_management.interfaces.resources;
 
-public record InventoryResource(
+public record InventoryItemResource(
         Long id,
         String sku,
         String description,
