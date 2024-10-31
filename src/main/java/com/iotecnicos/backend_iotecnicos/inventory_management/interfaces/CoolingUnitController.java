@@ -1,6 +1,7 @@
 package com.iotecnicos.backend_iotecnicos.inventory_management.interfaces;
 
 import com.iotecnicos.backend_iotecnicos.inventory_management.domain.model.commands.DeleteCoolingUnitCommand;
+import com.iotecnicos.backend_iotecnicos.inventory_management.domain.model.commands.ReportCoolingUnitFailureCommand;
 import com.iotecnicos.backend_iotecnicos.inventory_management.domain.model.queries.GetAllCoolerUnitByProjectIdQuery;
 import com.iotecnicos.backend_iotecnicos.inventory_management.domain.model.queries.GetCoolerUnitByIdQuery;
 import com.iotecnicos.backend_iotecnicos.inventory_management.domain.services.CoolingUnitCommandService;
@@ -114,5 +115,18 @@ public class CoolingUnitController {
         }
         coolingUnitCommandService.scheduleMaintenance(coolingUnitId, maintenanceDate);
         return ResponseEntity.ok("Maintenance scheduled successfully");
+    }
+
+    @PostMapping("/{coolingUnitId}/report-failure")
+    public ResponseEntity<?> reportCoolingUnitFailure(
+            @PathVariable Long coolingUnitId,
+            @RequestBody String failureDescription) {
+        var reportCoolingUnitFailureCommand = new ReportCoolingUnitFailureCommand(coolingUnitId, failureDescription);
+        try {
+            coolingUnitCommandService.handle(reportCoolingUnitFailureCommand);
+            return ResponseEntity.ok("Cooling Unit failure reported successfully");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

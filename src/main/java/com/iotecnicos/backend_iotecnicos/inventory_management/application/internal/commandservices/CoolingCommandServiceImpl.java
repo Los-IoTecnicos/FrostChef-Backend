@@ -3,6 +3,7 @@ package com.iotecnicos.backend_iotecnicos.inventory_management.application.inter
 import com.iotecnicos.backend_iotecnicos.inventory_management.domain.model.aggregates.CoolingUnit;
 import com.iotecnicos.backend_iotecnicos.inventory_management.domain.model.commands.CreateCoolingUnitCommand;
 import com.iotecnicos.backend_iotecnicos.inventory_management.domain.model.commands.DeleteCoolingUnitCommand;
+import com.iotecnicos.backend_iotecnicos.inventory_management.domain.model.commands.ReportCoolingUnitFailureCommand;
 import com.iotecnicos.backend_iotecnicos.inventory_management.domain.model.commands.UpdateCoolingUnitCommand;
 import com.iotecnicos.backend_iotecnicos.inventory_management.domain.model.valueobjects.Project;
 import com.iotecnicos.backend_iotecnicos.inventory_management.domain.services.CoolingUnitCommandService;
@@ -103,6 +104,20 @@ public class CoolingCommandServiceImpl implements CoolingUnitCommandService {
         }
 
         coolingUnit.setLastMaintenanceDate(maintenanceDate);
+        coolingUnitRepository.save(coolingUnit);
+    }
+
+    @Override
+    public void handle(ReportCoolingUnitFailureCommand command) {
+        var coolingUnitOptional = coolingUnitRepository.findById(command.getCoolingUnitId());
+        if (coolingUnitOptional.isEmpty()) {
+            throw new IllegalArgumentException("Cooling Unit not found with ID " + command.getCoolingUnitId());
+        }
+
+        CoolingUnit coolingUnit = coolingUnitOptional.get();
+        // Aquí podrías tener una lista de fallos o cambiar el estado del equipo a "failed".
+        coolingUnit.setStatus("FAILED");
+        coolingUnit.setFailureDescription(command.getFailureDescription());
         coolingUnitRepository.save(coolingUnit);
     }
 }

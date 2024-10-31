@@ -37,7 +37,8 @@ public class CoolingUnit extends AuditableAbstractAggregateRoot<CoolingUnit> {
     private Date lastMaintenanceDate;
     @Column
     private Float temperature;
-
+    @Column
+    private String failureDescription;
     public CoolingUnit() {
         this.project = new Project(null);
         this.type = "";
@@ -84,9 +85,20 @@ public class CoolingUnit extends AuditableAbstractAggregateRoot<CoolingUnit> {
     public Long getProjectId(){
         return project.projectEnt();
     }
+    public void setStatus(String status) {
+        this.status = status;
+    }
     public void setTemperature(Float temperature) {
         this.temperature = temperature;
     }
 
     public void setLastMaintenanceDate(Date lastMaintenanceDate) {this.lastMaintenanceDate = lastMaintenanceDate;}
+    // Getter y Setter para failureDescription
+    public String getFailureDescription() {
+        return failureDescription;
+    }
+
+    public void setFailureDescription(String failureDescription) {
+        this.failureDescription = failureDescription;
+    }
 }
